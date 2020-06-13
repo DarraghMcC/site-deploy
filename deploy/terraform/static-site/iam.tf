@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
     }
     resources = [
-      "arn:aws:s3:::${var.root_domain_name}/*"
+      "arn:aws:s3:::${var.www_domain_name}/*"
     ]
   }
 }

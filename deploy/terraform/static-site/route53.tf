@@ -13,12 +13,28 @@ resource "aws_route53_record" "www" {
   }
 }
 
+resource "aws_route53_record" "root" {
+  zone_id = aws_route53_zone.primary.zone_id
+
+  // NOTE: name is blank here.
+  name = ""
+  type = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.root_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.root_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_acm_certificate" "cert" {
   domain_name = "*.${var.root_domain_name}"
   validation_method = "DNS"
   lifecycle {
     create_before_destroy = true
   }
+   // Needed for cert to be valid for the root domain 
+  subject_alternative_names = ["${var.root_domain_name}"]
 }
 
 resource "aws_acm_certificate_validation" "cert" {
