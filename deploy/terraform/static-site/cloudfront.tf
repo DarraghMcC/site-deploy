@@ -2,7 +2,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {}
 
 resource "aws_cloudfront_distribution" "prod_distribution" {
   origin {
-    domain_name = "${var.root_domain_name}.s3-website-${var.aws_region}.amazonaws.com"
+    domain_name = "${var.www_domain_name}.s3-website-${var.aws_region}.amazonaws.com"
     origin_id = "${var.www_domain_name}-origin"
     custom_origin_config {
       http_port              = 80
