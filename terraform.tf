@@ -20,11 +20,31 @@ variable "root_domain_name" {
   type = string
 }
 
+variable "forward_emails" {
+  type        = map(list(string))
+  description = "Map of forward emails"
+}
+
+variable "relay_email" {
+  type        = string
+  description = "Email that used to relay from"
+}
+
 module "website" {
   source = "./deploy/terraform/static-site"
   www_domain_name = var.www_domain_name
   root_domain_name=var.root_domain_name
   aws_region=var.aws_region
+}
+
+module "ses_lambda_forwarder" {
+  source    = "git::https://github.com/cloudposse/terraform-aws-ses-lambda-forwarder.git?ref=master"
+  name="${var.root_domain_name}_forward_emails"
+  region = var.aws_region
+  domain = var.root_domain_name
+
+  relay_email    = var.relay_email
+  forward_emails = var.forward_emails
 }
 
 provider "aws" {
