@@ -6,3 +6,5 @@ forward_emails = {
   "me@darraghmc.com" = ["darraghm.mccarthy@gmail.com"]
 }
 relay_email="darragh.m.mccarthy@gmail.com"
+lambda_forwarder_runtime="nodejs12.x"
+lambda_upload_bucket="email-forwarder-code"
