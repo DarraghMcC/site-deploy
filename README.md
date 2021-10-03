@@ -4,6 +4,9 @@ My personal website - `www.darraghmc.com`
 
 Creates cloudfront distributiion backed by s3 bucket and relevant route53 A records.
 
+## Updating the website
+This repository deals with the infrastructure around the website; for site source code and instructions on updating this, please see https://github.com/DarraghMcC/darraghmc.com
+
 ## Handling non www version (darraghmc.com)
 In order to have cloudfront handle the ssl certs for this site, have created a new CDN backed 
 by an s3 bucket which is just a straight redirect to `www.darraghmc.com`.
